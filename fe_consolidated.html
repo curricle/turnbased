@@ -26,16 +26,12 @@
 			var noDmg2 = false;
 			var inventory = [];
 
-
-
 				function getUnitsWithRandomNames(n) {
 
 					if(n) {
 						$.getJSON("https://randomuser.me/api/?inc=name", function(data) {
 							holder = data.results[0].name.first;
-
 							continuous(n, holder);
-
 						});
 					}
 
@@ -44,14 +40,10 @@
 							holder = data.results[0].name.first;
 
 							//if your unit was manually named, insert continuous(name, name) call; else, generate second random name
-
 							$.getJSON("https://randomuser.me/api/?inc=name", function(data) {
 								holder2 = data.results[0].name.first;
-
 								continuous(holder, holder2);
-
 							});
-
 						});
 					}
 				}
@@ -128,8 +120,6 @@
 						this.currentExp = 0;
 					}
 					this.neededExp = (this.lvl * 10)*2;
-
-					console.log(this.unitName + " Exp: " + this.currentExp + " Lvl: " + this.lvl + " Needed exp: " + this.neededExp);
 				}
 
 				//weapon constructor
@@ -167,8 +157,6 @@
 				function addToBag(unit, x) {
 					if(unit.bag.length < unit.bagMaxLength) {
 						unit.bag.push(x);
-						console.log(unit.bag);
-						console.log(unit.bag.length);
 					}
 				}
 
@@ -206,7 +194,6 @@
 							$("#hpBar2").css("background-color", "#f94a4a");
 						}
 					}
-
 				}
 
 				//update display function
@@ -240,9 +227,9 @@
 						"<br>Hit: " + b.hit);
 
 						updateHealthBar(b);
-
 					}
 
+					//don't allow player to attack when a unit is defeated
 					if(a.hp <= 0 || b.hp <= 0) {
 						$("#attack").parent("button").addClass("disabled");
 					}
@@ -260,6 +247,7 @@
 						}
 					}
 
+					//styling for stat changes
 					if(battleHit < a.hit) {
 						$("#battleHit").css("color", "red");
 					}
@@ -289,10 +277,7 @@
 						if($("#unit2_info").children(".miss").length > 0) {
 							$("#unit2_info").remove(".miss");
 						}
-
 					}, 500)
-
-
 				}
 
 				function equipWeapon(w) {
@@ -380,7 +365,6 @@
 
 					//update hp display
 					updateDisplay(a, b);
-
 					endTurn(a, b);
 				}
 
@@ -406,7 +390,6 @@
 
 					//update hp display
 					updateDisplay(a, b);
-
 					endAiTurn(b, a);
 				}
 
@@ -417,12 +400,10 @@
 						$("#unitStats").append(missMsg);
 						miss2 = false;
 					}
-
 					if(noDmg2 === true) {
 						$("#unitStats").append(noDmg);
 						noDmg2 = false;
 					}
-
 					if (b.hp <= 0) {
 						$("#unit1_info").html("<h3>Unit 1 has been defeated</h3>");
 						$("#unit1_info").addClass("defeated");
@@ -445,13 +426,13 @@
 							delete a.weapon;
 						}
 					}
-
 				}
 
 				function lvlupMsg() {
 					$(".levelUp").css("display", "visible");
 				}
 
+				//increase unit level and stats
 				function lvlUp(unit) {
 					if(unit.currentExp >= unit.neededExp) {
 						unit.currentExp = unit.currentExp - unit.neededExp;
@@ -495,6 +476,7 @@
 								$(".levelUp").append("<p class='statIncrease'>Mag increased by 1.</p>")
 							}
 						}
+						
 						if(unit.unitClass == "mage") {
 							//rng for hp
 							if(Math.random()*100 >= 55) {
@@ -531,6 +513,7 @@
 								$(".levelUp").append("<p class='statIncrease'>Mag increased by 1.</p>")
 							}
 						}
+						
 						$(".levelUp").append("<button class='btn btn-primary' id='lvlOk'>OK</button>");
 						$("#lvlOk").on("click", function() {
 							$(".levelUp").remove();
@@ -567,7 +550,6 @@
 
 				function addButtons() {
 					//attack button
-
 					$(".buttonHolder").html("<button class='btn btn-primary' id='attack'>attack</button>");
 
 					$("#attack").on("click", function() {
@@ -591,6 +573,7 @@
 						equipWeapon(orphanWeapon);
 					});
 
+					//unequip weapon 1
 					$("#unequip").on("click", function() {
 						unequipWeapon();
 					});
@@ -599,7 +582,8 @@
 					$("#getNewAxe").on("click", function() {
 						getNewWeapon("Axe");
 					});
-
+					
+					//add to bag
 					$("#addaxetobag").on("click", function() {
 						addToBag(unit1, weapon1);
 					});
@@ -610,6 +594,7 @@
 						equipWeapon(orphanWeapon);
 					});
 
+					//unequip weapon 2
 					$("#unequip2").on("click", function() {
 						unequipWeapon();
 					});
@@ -626,6 +611,7 @@
 
 				}
 
+				//generate new weapons with semirandom stats
 				function getNewWeapon(name) {
 					if(name == "Axe") {
 						console.log("new axe generated");
@@ -647,9 +633,9 @@
 					$("#weapons_info").append("<div class='col-md-4'><h3>" + item1.name + "</h3><p>" + item1.desc + "</p><p><button class='btn btn-primary' id='useitem'>use</button></p></div>");
 
 					addButtons();
-
 				}
 
+				//instantiation
 				function continuous(d, g) {
 
 					//create units
@@ -664,8 +650,6 @@
 
 					//display original numbers
 					updateDisplay(unit1, unit2);
-
-
 				}
 
 				//call manual naming function just before randomName call; if manually named, restructure function syntax to include an arg which passes the user's name
@@ -690,9 +674,7 @@
 						getUnitsWithRandomNames();
 					});
 				}
-
 				nameUnit();
-
 		}
 
 		function startGame() {
@@ -823,11 +805,9 @@
 		<div class="col-md-6 col-xs-12">
 
 			<div class="animated unit container-fluid" id="unit1_info">
-
 			</div>
 
 			<div class="buttonHolder">
-
 			</div>
 		</div>
 
@@ -836,20 +816,11 @@
 				<span class="miss"></span>
 			</div>
 		</div>
-
 	</div>
 
-
-
 		<div class="row">
-				<div id="weapons_info">
-				</div>
+			<div id="weapons_info">
+			</div>
 		</div>
-
-
-
-
-
-</body>
-
+	</body>
 </html>
