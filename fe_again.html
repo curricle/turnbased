@@ -1,0 +1,156 @@
+<html>
+	<head>
+		<title>fe</title>
+		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+		<script language="JavaScript" type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+		<script language="JavaScript" type="text/javascript" src="fe.js"></script>
+
+		<style type="text/css">
+			.unit {
+				border-style: solid;
+				border-width: 5px;
+				border-color: #f4ce42;
+				border-radius: 20px;
+				margin: 5%;
+				background-color: #fff2c1;
+			}
+
+			.defeated {
+			background-color: #ff5e5e;
+			border-color: #ce3010;
+			}
+
+			#unit1_info {
+				padding: 3%;
+			}
+
+			#unit1_info img {
+				width: 100%;
+				padding: 1px;
+			}
+
+			#unit2_info {
+				padding: 3%;
+			}
+
+			#unit2_info .hpBarContainer {
+				width: 50%;
+			}
+
+			.hpBar {
+				background-color: #9fd149;
+				border-radius: 10px;
+			}
+
+			.hpBarContainer {
+				background-color: #efefef;
+				border-radius: 20px;
+				min-width: 100px;
+				min-height: 5px;
+				position: relative;
+				border-style: solid;
+				border-color: #f4ce42;
+				border-width: 2px;
+			}
+
+			.expBar {
+				background-color: #da749f;
+				border-radius: 10px;
+				font-size: 60%;
+			}
+
+			#expText {
+				padding-left: 5%;
+				position: absolute;
+				top: 0;
+				font-size: 60%;
+				font-weight: bold;
+				z-index: 1;
+			}
+
+			.hpText {
+				padding-left: 5%;
+				z-index: 1;
+				position: absolute;
+				top: 0;
+			}
+
+			#weapons_info {
+				padding: 3%;
+			}
+
+			.buttonHolder {
+				padding: 3%;
+			}
+			.miss {
+				color: red;
+			}
+
+			.levelUp {
+				float: left;
+				border-style: solid;
+				border-width: 5px;
+				border-color: #f4ce42;
+				border-radius: 20px;
+				margin: 0 auto;
+				width: 500px;
+				padding: 2%;
+				background-color: #fff2c1;
+				z-index: 1;
+			}
+
+			.levelUp h3 {
+				text-align: center;
+			}
+
+			.levelUp button {
+				text-align: center;
+			}
+
+			.statIncrease {
+				background-color: #f4ce42;
+				border-radius: 25px;
+				padding: 1%;
+				display: hidden;
+			}
+			</style>
+	</head>
+
+	<body>
+
+		<div class="row battleground">
+
+			<div class="col-md-6 col-xs-12">
+
+				<div class="animated unit container-fluid" id="unit1_info">
+
+				</div>
+
+				<div class="buttonHolder">
+
+				</div>
+			</div>
+
+			<div class="col-md-6 col-xs-12">
+				<div class="animated unit" id="unit2_info">
+					<span class="miss"></span>
+				</div>
+			</div>
+
+		</div>
+
+
+
+			<div class="row">
+					<div id="weapons_info">
+					</div>
+			</div>
+
+
+
+
+
+	</body>
+
+</html>
