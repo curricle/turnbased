@@ -99,7 +99,7 @@ function encapsulation() {
 				this.mag = getRandomInRange(3,6) + lvl;
 				this.res = getRandomInRange(3,6) + lvl;
 				this.unitClass = unitClass;
-				this.portrait = "images/cav_portrait.png";
+				this.portrait = "https://i.gyazo.com/2dff2a3db5b490fb398aa4d7f25dfd28.png";
 			}
 			if(unitClass == "mage") {
 				this.str = getRandomInRange(3,7) + lvl;
@@ -109,7 +109,7 @@ function encapsulation() {
 				this.mag = getRandomInRange(5,9) + lvl;
 				this.res = getRandomInRange(5,9) + lvl;
 				this.unitClass = unitClass;
-				this.portrait = "images/mage_portrait.png";
+				this.portrait = "https://i.gyazo.com/099876f8432cd69b0c7ed0bf711dfc97.png";
 			}
 
 			this.origHp = this.hp;
@@ -132,6 +132,7 @@ function encapsulation() {
 			this.name = name;
 			this.cat = cat;
 			this.uses = uses;
+			this.maxUses = uses;
 			if(desc) {
 				this.desc = desc;
 			}
@@ -162,6 +163,8 @@ function encapsulation() {
 				unit.bag.push(x);
 				console.log(unit.bag);
 				console.log(unit.bag.length);
+
+				updateDisplay(unit1, unit2);
 			}
 		}
 
@@ -218,6 +221,18 @@ function encapsulation() {
 				"</span><br><span id='res'>Res: " + a.res +
 				"</span><br><span id='hit'>Hit: " + a.hit + "</span></div>");
 
+				for(var i = 0; i < 5; i++) {
+					$("#unitStats").append("<div class='bagSlot' id='bagslot" + i + "'>&nbsp</div>");
+				}
+
+				if(a.bag.length > 0) {
+					for(var i = 0; i < a.bag.length; i++) {
+						var bagSlotNo = "#bagslot" + i;
+						console.log(bagSlotNo + " " + a.bag[i].name);
+						$(bagSlotNo).html("<span class='bagSlotItem'><span class='bagSlotName'>" + a.bag[i].name + "</span><span class='bagSlotUses'> | " + a.bag[i].uses + "</span></span>");
+					}
+				}
+
 				updateHealthBar(a);
 				updateExpBar(a);
 			}
@@ -231,6 +246,10 @@ function encapsulation() {
 				"<br>Mag: " + b.mag +
 				"<br>Res: " + b.res +
 				"<br>Hit: " + b.hit);
+
+				for(var i = 0; i < 5; i++) {
+					$("#unit2_info").append("<div class='bagSlot' id='enemyBagSlot" + i + "'>&nbsp</div>");
+				}
 
 				updateHealthBar(b);
 
@@ -435,6 +454,8 @@ function encapsulation() {
 
 			if(a.hasOwnProperty("weapon")) {
 				if(a.weapon.uses == 0) {
+					var temp = a.bag.indexOf(a.weapon);
+					a.bag.splice(temp, 1);
 					delete a.weapon;
 				}
 			}
@@ -584,6 +605,13 @@ function encapsulation() {
 				equipWeapon(orphanWeapon);
 			});
 
+			$(".bagSlot").each(function(index) {
+				$(this).on("click", function() {
+					equipWeapon(unit1.bag[index]);
+					console.log("bag item clicked!");
+				});
+			});
+
 			$("#unequip").on("click", function() {
 				unequipWeapon();
 			});
@@ -594,7 +622,16 @@ function encapsulation() {
 			});
 
 			$("#addaxetobag").on("click", function() {
-				addToBag(unit1, weapon1);
+				var temp;
+				temp = new weapon(weapon1.mt, weapon1.hit, weapon1.cat, weapon1.name, weapon1.desc, weapon1.uses);
+				if(temp.uses > 0) {
+					addToBag(unit1, temp);
+				}
+				else {
+					temp.uses = temp.maxUses;
+					addToBag(unit1, temp);
+				}
+
 			});
 
 			//equip weapon button
@@ -685,7 +722,6 @@ function encapsulation() {
 		}
 
 		nameUnit();
-
 }
 
 function startGame() {
