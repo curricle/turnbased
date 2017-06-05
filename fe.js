@@ -26,9 +26,7 @@ function encapsulation() {
 			if(n) {
 				$.getJSON("https://randomuser.me/api/?inc=name", function(data) {
 					holder = data.results[0].name.first;
-
 					continuous(n, holder);
-
 				});
 			}
 
@@ -37,14 +35,10 @@ function encapsulation() {
 					holder = data.results[0].name.first;
 
 					//if your unit was manually named, insert continuous(name, name) call; else, generate second random name
-
 					$.getJSON("https://randomuser.me/api/?inc=name", function(data) {
 						holder2 = data.results[0].name.first;
-
 						continuous(holder, holder2);
-
 					});
-
 				});
 			}
 		}
@@ -159,9 +153,6 @@ function encapsulation() {
 		function addToBag(unit, x) {
 			if(unit.bag.length < unit.bagMaxLength) {
 				unit.bag.push(x);
-				console.log(unit.bag);
-				console.log(unit.bag.length);
-
 				updateDisplay(unit1, unit2);
 			}
 		}
@@ -170,7 +161,6 @@ function encapsulation() {
 		function updateExpBar(unit) {
 			var expPercentage = (unit.currentExp / unit.neededExp)*100;
 			var expPercentageStr = expPercentage.toString().concat("%");
-
 			$(".expBar").css("width", expPercentageStr);
 		}
 
@@ -226,7 +216,6 @@ function encapsulation() {
 				if(a.bag.length > 0) {
 					for(var i = 0; i < a.bag.length; i++) {
 						var bagSlotNo = "#bagslot" + i;
-						console.log(bagSlotNo + " " + a.bag[i].name);
 						$(bagSlotNo).html("<span class='bagSlotItem'><span class='bagSlotName'>" + a.bag[i].name + "</span><span class='bagSlotUses'> | " + a.bag[i].uses + "</span></span>");
 					}
 				}
@@ -463,62 +452,62 @@ function encapsulation() {
 					//rng for hp
 					if(Math.random()*100 >= 75) {
 						unit.origHp++;
-						$(".levelUp").append("<p class='statIncrease'>HP increased by 1.</p>")
+						$(".levelUp").append("<p class='statIncrease'>HP increased by 1.</p>");
 					}
 
 					//rng for str
 					if(Math.random()*100 >= 35) {
 						unit.str++;
-						$(".levelUp").append("<p class='statIncrease'>Str increased by 1.</p>")
+						$(".levelUp").append("<p class='statIncrease'>Str increased by 1.</p>");
 					}
 
 					//rng for def
 					if(Math.random()*100 >= 15) {
 						unit.def++;
-						$(".levelUp").append("<p class='statIncrease'>Def increased by 1.</p>")
+						$(".levelUp").append("<p class='statIncrease'>Def increased by 1.</p>");
 					}
 
 					//rng for res
 					if(Math.random()*100 >= 12) {
 						unit.res++;
-						$(".levelUp").append("<p class='statIncrease'>Res increased by 1.</p>")
+						$(".levelUp").append("<p class='statIncrease'>Res increased by 1.</p>");
 					}
 
 					//rng for mag
 					if(Math.random()*100 >= 35) {
 						unit.mag++;
-						$(".levelUp").append("<p class='statIncrease'>Mag increased by 1.</p>")
+						$(".levelUp").append("<p class='statIncrease'>Mag increased by 1.</p>");
 					}
 				}
 				if(unit.unitClass == "mage") {
 					//rng for hp
 					if(Math.random()*100 >= 55) {
 						unit.origHp++;
-						$(".levelUp").append("<p class='statIncrease'>HP increased by 1.</p>")
+						$(".levelUp").append("<p class='statIncrease'>HP increased by 1.</p>");
 					}
 
 					//rng for str
 					if(Math.random()*100 >= 55) {
 						unit.str++;
-						$(".levelUp").append("<p class='statIncrease'>Str increased by 1.</p>")
+						$(".levelUp").append("<p class='statIncrease'>Str increased by 1.</p>");
 					}
 
 					//rng for def
 					if(Math.random()*100 >= 5) {
 						unit.def++;
-						$(".levelUp").append("<p class='statIncrease'>Def increased by 1.</p>")
+						$(".levelUp").append("<p class='statIncrease'>Def increased by 1.</p>");
 					}
 
 					//rng for res
 					if(Math.random()*100 >= 35) {
 						unit.res++;
-						$(".levelUp").append("<p class='statIncrease'>Res increased by 1.</p>")
+						$(".levelUp").append("<p class='statIncrease'>Res increased by 1.</p>");
 					}
 
 					//rng for mag
 					if(Math.random()*100 >= 55) {
 						unit.mag++;
-						$(".levelUp").append("<p class='statIncrease'>Mag increased by 1.</p>")
+						$(".levelUp").append("<p class='statIncrease'>Mag increased by 1.</p>");
 					}
 				}
 				$(".levelUp").append("<button class='btn btn-primary' id='lvlOk'>OK</button>");
@@ -537,7 +526,7 @@ function encapsulation() {
 			$("#unit2_info").html("<h3>Unit 2 has been defeated</h3>");
 			$("#unit2_info").addClass("defeated");
 
-			$("#unit2_info").append("<button class='btn btn-primary' id='genEnemy'>Get new opponent</button>")
+			$("#unit2_info").append("<button class='btn btn-primary' id='genEnemy'>Get new opponent</button>");
 
 			$("#genEnemy").on("click", function() {
 				resetUnit();
