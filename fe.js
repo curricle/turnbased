@@ -10,6 +10,7 @@ function encapsulation() {
 	var unit2;
 	var weapon1;
 	var weapon2;
+	var item1;
 	var orphanWeapon;
 	var missMsg = "<br><span class=\"miss\">Miss!</div>";
 	var noDmg = "<br><span class=\"miss\">No damage!</div>";
@@ -60,7 +61,7 @@ function encapsulation() {
 		}
 
 		//unit constructor
-		function unit(unitName, unitClass, str, mag, hp, def, res, hit) {
+		function Unit(unitName, unitClass, str, mag, hp, def, res, hit) {
 			this.unitName = unitName;
 			this.unitClass = unitClass;
 			this.str = str;
@@ -73,7 +74,7 @@ function encapsulation() {
 		}
 
 		//create units by class with semirandom stats and random names
-		function unit(unitClass, n, lvl, exp) {
+		function Unit(unitClass, n, lvl, exp) {
 
 			if(n) {
 				this.unitName = n.replace(n[0], n[0].toUpperCase());
@@ -118,7 +119,7 @@ function encapsulation() {
 		}
 
 		//weapon constructor
-		function weapon(mt, hit, cat, name, desc, uses) {
+		function Weapon(mt, hit, cat, name, desc, uses) {
 			this.mt = mt;
 			this.hit = hit;
 			this.name = name;
@@ -134,7 +135,7 @@ function encapsulation() {
 		}
 
 		//item constructor
-		function item(name) {
+		function Item(name) {
 			if(name == "Vulnerary") {
 				this.name = name;
 				this.healAmt = 10;
@@ -537,7 +538,7 @@ function encapsulation() {
 
 		//generate a new enemy
 		function resetUnit() {
-			unit2 = new unit(getRandomUnitClass(),null,unit1.lvl, getRandomInRange(unit1.lvl, (unit1.lvl*10)));
+			unit2 = new Unit(getRandomUnitClass(),null,unit1.lvl, getRandomInRange(unit1.lvl, (unit1.lvl*10)));
 			updateDisplay(unit1, unit2);
 			$("#unit2_info").removeClass("defeated");
 			$("#attack").removeClass("disabled");
@@ -586,7 +587,7 @@ function encapsulation() {
 
 			$("#addaxetobag").on("click", function() {
 				var temp;
-				temp = new weapon(weapon1.mt, weapon1.hit, weapon1.cat, weapon1.name, weapon1.desc, weapon1.uses);
+				temp = new Weapon(weapon1.mt, weapon1.hit, weapon1.cat, weapon1.name, weapon1.desc, weapon1.uses);
 				if(temp.uses > 0) {
 					addToBag(unit1, temp);
 				}
@@ -621,11 +622,11 @@ function encapsulation() {
 
 		function getNewWeapon(name) {
 			if(name == "Axe") {
-				weapon1 = new weapon(getRandomInRange(4,10), getRandomInRange(4,10), "phys", "Axe", null, getRandomInRange(5,15));
+				weapon1 = new Weapon(getRandomInRange(4,10), getRandomInRange(4,10), "phys", "Axe", null, getRandomInRange(5,15));
 			}
 
 			if(name == "Book") {
-				weapon2 = new weapon(getRandomInRange(4,9), getRandomInRange(4,10), "mag", "Book", null, getRandomInRange(4,12));
+				weapon2 = new Weapon(getRandomInRange(4,9), getRandomInRange(4,10), "mag", "Book", null, getRandomInRange(4,12));
 			}
 			updateDisplay(unit1, unit2);
 		}
@@ -643,14 +644,14 @@ function encapsulation() {
 		function continuous(d, g) {
 
 			//create units
-			unit1 = new unit(getRandomUnitClass(), d, 1);
-			unit2 = new unit(getRandomUnitClass(), g, 1, getRandomInRange(unit1.lvl+1, (unit1.lvl*10)));
+			unit1 = new Unit(getRandomUnitClass(), d, 1);
+			unit2 = new Unit(getRandomUnitClass(), g, 1, getRandomInRange(unit1.lvl+1, (unit1.lvl*10)));
 
 			//create weapons
-			weapon1 = new weapon(getRandomInRange(4,10), getRandomInRange(4,10), "phys", "Axe", null, getRandomInRange(5,15));
-			weapon2 = new weapon(getRandomInRange(4,9), getRandomInRange(4,10), "mag", "Book", null, getRandomInRange(4,12));
+			weapon1 = new Weapon(getRandomInRange(4,10), getRandomInRange(4,10), "phys", "Axe", null, getRandomInRange(5,15));
+			weapon2 = new Weapon(getRandomInRange(4,9), getRandomInRange(4,10), "mag", "Book", null, getRandomInRange(4,12));
 
-			item1 = new item("Vulnerary");
+			item1 = new Item("Vulnerary");
 
 			//display original numbers
 			updateDisplay(unit1, unit2);
