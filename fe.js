@@ -129,8 +129,6 @@ function encapsulation() {
 
 			//determine how much exp is needed for unit to level up
 			this.neededExp = (this.lvl * 10)*2;
-
-			console.log(this.unitName + " Exp: " + this.currentExp + " Lvl: " + this.lvl + " Needed exp: " + this.neededExp);
 		}
 
 		//weapon constructor
@@ -171,8 +169,6 @@ function encapsulation() {
 		function addToBag(unit, x) {
 			if(unit.bag.length < unit.bagMaxLength) {
 				unit.bag.push(x);
-				console.log(unit.bag);
-				console.log(unit.bag.length);
 
 				updateDisplay(unit1, unit2);
 			}
@@ -184,7 +180,6 @@ function encapsulation() {
 			var expPercentageStr = expPercentage.toString().concat("%");
 
 			$(".expBar").css("width", expPercentageStr);
-			//$(".expBar").animate({width: expPercentageStr});
 		}
 
 		//update health bars
@@ -239,7 +234,6 @@ function encapsulation() {
 				if(a.bag.length > 0) {
 					for(var i = 0; i < a.bag.length; i++) {
 						var bagSlotNo = "#bagslot" + i;
-						console.log(bagSlotNo + " " + a.bag[i].name);
 						$(bagSlotNo).html("<span class='bagSlotItem'><span class='bagSlotName'>" + a.bag[i].name + "</span><span class='bagSlotUses'> | " + a.bag[i].uses + "</span></span>");
 					}
 				}
@@ -352,11 +346,9 @@ function encapsulation() {
 						if(battleDamage-b.def > 0) {
 							b.hp -= battleDamage-b.def;
 							$("#unit2_info").addClass("shake");
-							console.log("Unit 1: Hit landed");
 						}
 						else {
 							noDmg1 = true;
-							console.log("Unit 1: No damage dealt");
 						}
 					}
 
@@ -364,11 +356,9 @@ function encapsulation() {
 						if(battleDamage-b.res > 0) {
 							b.hp -= battleDamage-b.res;
 							$("#unit2_info").addClass("shake");
-							console.log("Unit 1: Hit landed");
 						}
 						else {
 							noDmg1 = true;
-							console.log("Unit 1: No damage dealt");
 						}
 					}
 
@@ -376,9 +366,7 @@ function encapsulation() {
 			}
 				else {
 					miss = true;
-					console.log("Unit 1: Miss");
 				}
-				console.log("Battle hit rate: " + battleHit + "; Battle damage: " + battleDamage);
 			}
 
 			if(a.hasOwnProperty("weapon") === false) {
@@ -387,17 +375,14 @@ function encapsulation() {
 					if(a.str-b.def > 0) {
 						b.hp -= a.str-b.def;
 						$("#unit2_info").addClass("shake");
-						console.log("Unit 1: Hit landed");
 					}
 					else {
 						b.hp = b.hp;
 						noDmg1 = true;
-						console.log("Unit 1: No damage dealt");
 					}
 				}
 				else {
 					miss = true;
-					console.log("Unit 1: Miss");
 				}
 			}
 
@@ -414,17 +399,14 @@ function encapsulation() {
 				if(b.str-a.def > 0) {
 						a.hp -= b.str-a.def;
 					$("#unit1_info").addClass("shake");
-					console.log("Unit 2: Hit landed");
 				}
 				else {
 					a.hp = a.hp;
 					noDmg2 = true;
-					console.log("Unit 2: No damage dealt");
 				}
 			}
 			else {
 				miss2 = true;
-				console.log("Unit 2: Missed");
 			}
 
 			//update hp display
@@ -488,35 +470,30 @@ function encapsulation() {
 					//rng for hp
 					if(Math.random()*100 >= 75) {
 						unit.origHp++;
-						console.log("HP increased by 1.");
 						$(".levelUp").append("<p class='statIncrease'>HP increased by 1.</p>");
 					}
 
 					//rng for str
 					if(Math.random()*100 >= 35) {
 						unit.str++;
-						console.log("Str increased by 1.");
 						$(".levelUp").append("<p class='statIncrease'>Str increased by 1.</p>");
 					}
 
 					//rng for def
 					if(Math.random()*100 >= 15) {
 						unit.def++;
-						console.log("Def increased by 1.");
 						$(".levelUp").append("<p class='statIncrease'>Def increased by 1.</p>");
 					}
 
 					//rng for res
 					if(Math.random()*100 >= 12) {
 						unit.res++;
-						console.log("Res increased by 1.");
 						$(".levelUp").append("<p class='statIncrease'>Res increased by 1.</p>");
 					}
 
 					//rng for mag
 					if(Math.random()*100 >= 35) {
 						unit.mag++;
-						console.log("Mag increased by 1.");
 						$(".levelUp").append("<p class='statIncrease'>Mag increased by 1.</p>");
 					}
 				}
@@ -524,35 +501,30 @@ function encapsulation() {
 					//rng for hp
 					if(Math.random()*100 >= 55) {
 						unit.origHp++;
-						console.log("HP increased by 1.");
 						$(".levelUp").append("<p class='statIncrease'>HP increased by 1.</p>");
 					}
 
 					//rng for str
 					if(Math.random()*100 >= 55) {
 						unit.str++;
-						console.log("Str increased by 1.");
 						$(".levelUp").append("<p class='statIncrease'>Str increased by 1.</p>");
 					}
 
 					//rng for def
 					if(Math.random()*100 >= 5) {
 						unit.def++;
-						console.log("Def increased by 1.");
 						$(".levelUp").append("<p class='statIncrease'>Def increased by 1.</p>");
 					}
 
 					//rng for res
 					if(Math.random()*100 >= 35) {
 						unit.res++;
-						console.log("Res increased by 1.");
 						$(".levelUp").append("<p class='statIncrease'>Res increased by 1.</p>");
 					}
 
 					//rng for mag
 					if(Math.random()*100 >= 55) {
 						unit.mag++;
-						console.log("Mag increased by 1.");
 						$(".levelUp").append("<p class='statIncrease'>Mag increased by 1.</p>");
 					}
 				}
@@ -561,7 +533,6 @@ function encapsulation() {
 					$(".levelUp").remove();
 				});
 				lvlupMsg();
-				console.log("unit 1 lvl: " + unit.lvl + " needed exp: " + unit.neededExp);
 			}
 			updateDisplay(unit1, unit2);
 		}
@@ -619,7 +590,6 @@ function encapsulation() {
 			$(".bagSlot").each(function(index) {
 				$(this).on("click", function() {
 					equipWeapon(unit1.bag[index]);
-					console.log("bag item clicked!");
 				});
 			});
 
@@ -670,14 +640,11 @@ function encapsulation() {
 		//generate weapons based on type (name)
 		function getNewWeapon(name) {
 			if(name == "Axe") {
-				console.log("new axe generated");
 				weapon1 = new weapon(getRandomInRange(4,10), getRandomInRange(4,10), "phys", "Axe", null, getRandomInRange(5,15));
 			}
 
 			if(name == "Book") {
-				console.log("new book generated");
-				weapon2 = new weapon(getRandomInRange(4,9), getRandomInRange(4,10), "mag", "Book", null, getRandomInRange(4,12));
-				console.log("orphan weapon: " + orphanWeapon + "unit1 weapon: " + unit1.weapon + "weapon2: " + weapon2);
+				weapon2 = new weapon(getRandomInRange(4,9), getRandomInRange(4,10), "mag", "Book", null, getRandomInRang
 			}
 			updateDisplay(unit1, unit2);
 		}
