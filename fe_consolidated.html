@@ -27,9 +27,10 @@
 			var inventory = [];
 
 
-
+			//generate unit names and begin game
 				function getUnitsWithRandomNames(n) {
 
+					//run if player unit is manually named (n); generate random name for enemy unit (holder)
 					if(n) {
 						$.getJSON("https://randomuser.me/api/?inc=name", function(data) {
 							holder = data.results[0].name.first;
@@ -39,16 +40,15 @@
 						});
 					}
 
+					//generate random names for both player (holder) and enemy unit (holder2)
 					else {
 						$.getJSON("https://randomuser.me/api/?inc=name", function(data) {
 							holder = data.results[0].name.first;
 
-							//if your unit was manually named, insert continuous(name, name) call; else, generate second random name
+						$.getJSON("https://randomuser.me/api/?inc=name", function(data) {
+							holder2 = data.results[0].name.first;
 
-							$.getJSON("https://randomuser.me/api/?inc=name", function(data) {
-								holder2 = data.results[0].name.first;
-
-								continuous(holder, holder2);
+							continuous(holder, holder2);
 
 							});
 
@@ -56,10 +56,12 @@
 					}
 				}
 
+				//random number function
 				function getRandomInRange(min, max) {
 					return Math.floor(Math.random()*(max-min+1)+min);
 				}
 
+				//randomly generate & assign unit class
 				function getRandomUnitClass() {
 					var x = getRandomInRange(0,1);
 					if(x == 1) {
@@ -88,6 +90,7 @@
 				//create units by class with semirandom stats and random names
 				function unit(unitClass, n, lvl, exp) {
 
+					//if unit has a name (n), assign name n; else make unit class the unit name
 					if(n) {
 						this.unitName = n.replace(n[0], n[0].toUpperCase());
 					}
@@ -95,9 +98,11 @@
 						this.unitName = unitClass.replace(unitClass[0], unitClass[0].toUpperCase());
 					}
 
+					//create unit inventory + assign inventory size
 					this.bag = [];
 					this.bagMaxLength = 5;
 
+					//generate semirandom stats based on unit class
 					if(unitClass == "cavalier") {
 						this.str = getRandomInRange(6,10) + lvl;
 						this.hp = getRandomInRange(10,15) + lvl;
@@ -119,6 +124,7 @@
 						this.portrait = "https://i.gyazo.com/099876f8432cd69b0c7ed0bf711dfc97.png";
 					}
 
+					//assign hp, level, and experience points
 					this.origHp = this.hp;
 					this.lvl = lvl;
 					if(exp) {
@@ -127,6 +133,8 @@
 					else {
 						this.currentExp = 0;
 					}
+
+					//determine how much exp is needed for unit to level up
 					this.neededExp = (this.lvl * 10)*2;
 
 					console.log(this.unitName + " Exp: " + this.currentExp + " Lvl: " + this.lvl + " Needed exp: " + this.neededExp);
@@ -153,10 +161,11 @@
 					if(name == "Vulnerary") {
 						this.name = name;
 						this.healAmt = 10;
-						this.desc = "Heal 10 points."
+						this.desc = "Heal 10 points.";
 					}
 				}
 
+				//use healing items; don't allow unit hp to exceed original max hp
 				function useItem(item, unit) {
 					unit.hp += item.healAmt;
 					if (unit.hp > unit.origHp) {
@@ -165,6 +174,7 @@
 					updateDisplay(unit1, unit2);
 				}
 
+				//add item to unit inventory
 				function addToBag(unit, x) {
 					if(unit.bag.length < unit.bagMaxLength) {
 						unit.bag.push(x);
@@ -181,6 +191,7 @@
 					var expPercentageStr = expPercentage.toString().concat("%");
 
 					$(".expBar").css("width", expPercentageStr);
+					//$(".expBar").animate({width: expPercentageStr});
 				}
 
 				//update health bars
@@ -309,7 +320,7 @@
 							$("#unit2_info").remove(".miss");
 						}
 
-					}, 500)
+					}, 500);
 
 
 				}
@@ -485,35 +496,35 @@
 							if(Math.random()*100 >= 75) {
 								unit.origHp++;
 								console.log("HP increased by 1.");
-								$(".levelUp").append("<p class='statIncrease'>HP increased by 1.</p>")
+								$(".levelUp").append("<p class='statIncrease'>HP increased by 1.</p>");
 							}
 
 							//rng for str
 							if(Math.random()*100 >= 35) {
 								unit.str++;
 								console.log("Str increased by 1.");
-								$(".levelUp").append("<p class='statIncrease'>Str increased by 1.</p>")
+								$(".levelUp").append("<p class='statIncrease'>Str increased by 1.</p>");
 							}
 
 							//rng for def
 							if(Math.random()*100 >= 15) {
 								unit.def++;
 								console.log("Def increased by 1.");
-								$(".levelUp").append("<p class='statIncrease'>Def increased by 1.</p>")
+								$(".levelUp").append("<p class='statIncrease'>Def increased by 1.</p>");
 							}
 
 							//rng for res
 							if(Math.random()*100 >= 12) {
 								unit.res++;
 								console.log("Res increased by 1.");
-								$(".levelUp").append("<p class='statIncrease'>Res increased by 1.</p>")
+								$(".levelUp").append("<p class='statIncrease'>Res increased by 1.</p>");
 							}
 
 							//rng for mag
 							if(Math.random()*100 >= 35) {
 								unit.mag++;
 								console.log("Mag increased by 1.");
-								$(".levelUp").append("<p class='statIncrease'>Mag increased by 1.</p>")
+								$(".levelUp").append("<p class='statIncrease'>Mag increased by 1.</p>");
 							}
 						}
 						if(unit.unitClass == "mage") {
@@ -521,35 +532,35 @@
 							if(Math.random()*100 >= 55) {
 								unit.origHp++;
 								console.log("HP increased by 1.");
-								$(".levelUp").append("<p class='statIncrease'>HP increased by 1.</p>")
+								$(".levelUp").append("<p class='statIncrease'>HP increased by 1.</p>");
 							}
 
 							//rng for str
 							if(Math.random()*100 >= 55) {
 								unit.str++;
 								console.log("Str increased by 1.");
-								$(".levelUp").append("<p class='statIncrease'>Str increased by 1.</p>")
+								$(".levelUp").append("<p class='statIncrease'>Str increased by 1.</p>");
 							}
 
 							//rng for def
 							if(Math.random()*100 >= 5) {
 								unit.def++;
 								console.log("Def increased by 1.");
-								$(".levelUp").append("<p class='statIncrease'>Def increased by 1.</p>")
+								$(".levelUp").append("<p class='statIncrease'>Def increased by 1.</p>");
 							}
 
 							//rng for res
 							if(Math.random()*100 >= 35) {
 								unit.res++;
 								console.log("Res increased by 1.");
-								$(".levelUp").append("<p class='statIncrease'>Res increased by 1.</p>")
+								$(".levelUp").append("<p class='statIncrease'>Res increased by 1.</p>");
 							}
 
 							//rng for mag
 							if(Math.random()*100 >= 55) {
 								unit.mag++;
 								console.log("Mag increased by 1.");
-								$(".levelUp").append("<p class='statIncrease'>Mag increased by 1.</p>")
+								$(".levelUp").append("<p class='statIncrease'>Mag increased by 1.</p>");
 							}
 						}
 						$(".levelUp").append("<button class='btn btn-primary' id='lvlOk'>OK</button>");
@@ -663,6 +674,7 @@
 
 				}
 
+				//generate weapons based on type (name)
 				function getNewWeapon(name) {
 					if(name == "Axe") {
 						console.log("new axe generated");
@@ -738,6 +750,7 @@
 		$(document).ready(function() {
 			startGame();
 			});
+
 
 
 		</script>
